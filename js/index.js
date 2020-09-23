@@ -1,13 +1,17 @@
 
+const charLabel = 'Characters: ';
+const byteLabel = 'Bytes: ';
+const kiloByteLabel = 'Kilobytes(KB): ';
+
 const getCount = () => {
     let text = $('#textarea').val();
     let count = text.length;
     let blob = new Blob([`${text}`]);
     let blobSize = blob.size;
-    $('#charDisplay').html(`Characters: ${count}`);
-    blobSize > 1000
-        ? $('#byteDisplay').html(`Megabytes: ${blobSize / 1024}`)
-        : $('#byteDisplay').html(`Bytes: ${blobSize}`);
+    $('#charDisplay').html(`${charLabel} ${count}`);
+    blobSize >= 1000
+        ? $('#byteDisplay').html(`${kiloByteLabel}${blobSize / 1000}`)
+        : $('#byteDisplay').html(`${byteLabel}${blobSize}`);
 
 }
 
@@ -24,15 +28,11 @@ const instagram = () => {
 }
 
 $('document').ready(() => {
-    $('#textarea').change(() => {
-        getCount();
-    });
+    $('#charDisplay').html(charLabel);
 
-    $('#textarea').hover(() => {
-        getCount();
-    });
+    $('#byteDisplay').html(byteLabel);
 
-    $('#button').click(() => {
+    $("#textarea").on("input", () => {
         getCount();
     });
 
@@ -48,7 +48,7 @@ $('document').ready(() => {
         instagram();
     });
 
-    $(function () {
+    $(() => {
         $('[data-toggle="tooltip"]').tooltip()
     })
 });
