@@ -1,6 +1,7 @@
 
 const charLabel = 'Characters: ';
 const byteLabel = 'Bytes: ';
+const wordLabel = "Words: "
 const kiloByteLabel = 'Kilobytes(KB): ';
 
 const getCount = () => {
@@ -12,7 +13,8 @@ const getCount = () => {
     blobSize >= 1000
         ? $('#byteDisplay').html(`${kiloByteLabel}${blobSize / 1000}`)
         : $('#byteDisplay').html(`${byteLabel}${blobSize}`);
-
+    let matches = text.match(/[\w\d\’\'-]+/gi);    
+    $('#wordDisplay').html(`${wordLabel}${matches ? matches.length : 0}`);    
 }
 
 const gitHub = () => {
@@ -31,6 +33,8 @@ $('document').ready(() => {
     $('#charDisplay').html(charLabel);
 
     $('#byteDisplay').html(byteLabel);
+
+    $('#wordDisplay').html(wordLabel);
 
     $("#textarea").on("input", () => {
         getCount();
