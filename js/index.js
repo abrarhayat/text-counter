@@ -23,12 +23,14 @@ const setTheme = (theme) => {
     $("#theme-toggle").addClass("dark");
     $("#textarea").addClass("dark");
     $("#footer").addClass("dark");
+    $("a").addClass("dark");
   } else {
     $("#theme-toggle").html(`<img src="images/dark_mode.svg" alt="dark_mode">`);
     $("#body").removeClass("dark");
     $("#theme-toggle").removeClass("dark");
     $("#textarea").removeClass("dark");
     $("#footer").removeClass("dark");
+    $("a").removeClass("dark");
   }
 };
 
@@ -44,6 +46,7 @@ const instagram = () => {
   window.open("https://www.instagram.com/abrarhayat");
 };
 
+// initializaing the page
 $("document").ready(() => {
   $("#charDisplay").html(charLabel);
 
@@ -54,6 +57,10 @@ $("document").ready(() => {
   $("#textarea").on("input", () => {
     getCount();
   });
+
+  $("#footer-text").html(
+    `<a href="https://abrarhayat.vercel.app" target="_blank">© ${new Date().getFullYear()} Abrar Hayat</a>`
+  );
 
   $("#github").click(() => {
     gitHub();
@@ -70,9 +77,10 @@ $("document").ready(() => {
   $(() => {
     $('[data-toggle="tooltip"]').tooltip();
   });
-  const theme = window.localStorage.getItem("theme");
+  let theme = window.localStorage.getItem("theme");
   if (!theme) {
-    window.localStorage.setItem("theme", "light");
+    theme = "dark";
+    window.localStorage.setItem("theme", theme);
   }
   setTheme(theme);
 });

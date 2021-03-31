@@ -14,20 +14,22 @@
 </head>
 
 <body id="body">
-    <button id="theme-toggle" class="btn" data-toggle="tooltip" title="Switch Theme"></button>
+    <button id="theme-toggle" class="btn"></button>
     <h1 class="mainHeader">
         Text Counter
     </h1>
     <div class="center form-group">
-        <textarea name="textarea" id="textarea" class="form-control" rows="7"
+        <textarea name="textarea" id="textarea" class="form-control" rows="7" cols="500"
             placeholder="Enter some characters here to begin counting!"></textarea>
         <br>
-        <h2 id="charDisplay"></h2>
-        <h2 id="byteDisplay"></h2>
-        <h2 id="wordDisplay"></h2>
+        <div class="display">
+            <h2 id="charDisplay"></h2>
+            <h2 id="byteDisplay"></h2>
+            <h2 id="wordDisplay"></h2>
+        </div>
     </div>
     <div id="footer">
-        <p>Author: </p>
+        <p id="footer-text"></p>
         <button id="github" class="btn btn-github" data-toggle="tooltip" title="https://github.com/abrarhayat">
             <i class="fa fa-github" aria-hidden="true"></i>
             Abrar Hayat</button>
