@@ -1,5 +1,9 @@
 body {
+  transition: all 0.5s;
+}
+body.dark {
   background-color: rgba(0, 10, 2, 0.7) !important;
+  color: greenyellow;
 }
 
 .mainHeader {
@@ -13,13 +17,17 @@ h3,
 p,
 #footer {
   text-align: center;
-  -webkit-text-fill-color: greenyellow;
   font-family: Arial, Helvetica, sans-serif;
+}
+#footer.dark {
+  -webkit-text-fill-color: greenyellow;
 }
 
 #textarea {
   font-family: Arial, Helvetica, sans-serif;
   border-width: 0.2rem;
+}
+#textarea.dark {
   border-color: greenyellow;
 }
 
@@ -33,13 +41,16 @@ p,
 .btn {
   min-width: 8rem;
 }
+.btn.dark {
+  background-color: greenyellow;
+}
 
 .tooltip-inner {
   min-width: 15rem;
 }
 
 #footer {
-  padding-top: 10rem;
+  padding-top: 4rem;
 }
 
 @media all and (max-width: 800px) {
@@ -49,10 +60,13 @@ p,
     padding-left: 5%;
     padding-right: 5%;
   }
+  .btn {
+    min-width: 4rem;
+  }
 }
 
 @media all and (min-height: 800px) {
   #footer {
-    padding-top: 25rem;
+    padding-top: 22rem;
   }
 }
