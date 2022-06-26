@@ -81,6 +81,10 @@ p,
   margin-left: auto;
 }
 
+#clipboard-success {
+  display:none;
+}
+
 img:hover {
   transform: rotate(360deg);
   transition: 0.5s;
