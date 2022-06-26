@@ -29,8 +29,9 @@
     </div>
     <div class="center form-group">
         <label class=".label" for="gen-text-input">Generate Random Character Sequence of a particular length</label>
-        <input class="form-control" id="gen-text-input" type="number" placeholder="Enter length here">
-        <br/>
+        <input class="form-control" id="gen-text-input" type="text" pattern="\d*" maxlength="6"
+            placeholder="Enter length here">
+        <br />
         <button id="gen-text" class="btn" onclick="setRandomTextInTextArea()">Generate Random Text</button>
     </div>
     <div id="footer">
