@@ -17,11 +17,12 @@ const getCount = () => {
 };
 
 const setTheme = (theme) => {
-  if (theme === "dark") {  
+  if (theme === "dark") {
     $("#theme-toggle").html(`<img src="images/light_mode.svg" alt="light_mode">`);
     $("#body").addClass("dark");
     $("#theme-toggle").addClass("dark");
     $("#textarea").addClass("dark");
+    $("#gen-text").addClass("dark");
     $("#footer").addClass("dark");
     $("a").addClass("dark");
   } else {
@@ -29,6 +30,7 @@ const setTheme = (theme) => {
     $("#body").removeClass("dark");
     $("#theme-toggle").removeClass("dark");
     $("#textarea").removeClass("dark");
+    $("#gen-text").removeClass("dark");
     $("#footer").removeClass("dark");
     $("a").removeClass("dark");
   }
@@ -55,6 +57,7 @@ $("document").ready(() => {
   $("#wordDisplay").html(wordLabel);
 
   $("#textarea").on("input", () => {
+    $("#gen-text-input").val('');
     getCount();
   });
 
@@ -90,3 +93,32 @@ $("#theme-toggle").click(() => {
   window.localStorage.setItem("theme", theme);
   setTheme(theme);
 });
+
+const setRandomTextInTextArea = () => {
+  let randomTextTargetLength = +$("#gen-text-input").val();
+  let resultText = generateDummyTextOfLength(randomTextTargetLength);
+  $(textarea).val(resultText);
+  getCount();
+}
+
+const generateDummyTextOfLength = (target) => {
+  const dummyText = "This is a random text. This is generated for a convenience of testing."
+  let result = dummyText
+
+  if ((target / dummyText.length) > 1) {
+    while (result.length < target) {
+      result = result + result
+    }
+    return checkForTrailingSpace(result.substring(0, target))
+  }
+  return checkForTrailingSpace(result.substring(0, target))
+}
+
+const checkForTrailingSpace = (result) => {
+  if (result.charAt(result.length - 1) == ' ') {
+    let maxLength = result.length
+    result = result.trim()
+    result = result.padEnd(maxLength, ".")
+  }
+  return result;
+}
