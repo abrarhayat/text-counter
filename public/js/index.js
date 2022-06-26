@@ -23,6 +23,8 @@ const setTheme = (theme) => {
     $("#theme-toggle").addClass("dark");
     $("#textarea").addClass("dark");
     $("#gen-text").addClass("dark");
+    $("#copy").addClass("dark");
+    $("#clear").addClass("dark");
     $("#footer").addClass("dark");
     $("a").addClass("dark");
   } else {
@@ -31,6 +33,8 @@ const setTheme = (theme) => {
     $("#theme-toggle").removeClass("dark");
     $("#textarea").removeClass("dark");
     $("#gen-text").removeClass("dark");
+    $("#copy").removeClass("dark");
+    $("#clear").removeClass("dark");
     $("#footer").removeClass("dark");
     $("a").removeClass("dark");
   }
@@ -121,4 +125,26 @@ const checkForTrailingSpace = (result) => {
     result = result.padEnd(maxLength, ".")
   }
   return result;
+}
+
+const clearText = () => {
+  $('#textarea').val('');
+  $("#gen-text-input").val('');
+  $("#charDisplay").html(charLabel);
+  $("#byteDisplay").html(byteLabel);
+  $("#wordDisplay").html(wordLabel);
+}
+
+const copyToClipboard = () => {
+  let textToCopy = $('#textarea').val();
+  let clipboardSuccessMessage = $('#clipboard-success');
+  if (textToCopy.length > 0) {
+    navigator.clipboard.writeText(textToCopy);
+    clipboardSuccessMessage.css('display', 'block');
+    clipboardSuccessMessage.addClass('show');
+    setTimeout(() => {
+      clipboardSuccessMessage.removeClass('show');
+      clipboardSuccessMessage.css('display', 'none');
+    }, 2000);
+  }
 }

@@ -18,7 +18,7 @@
         Text Counter
     </h1>
     <div class="center form-group">
-        <textarea name="textarea" id="textarea" class="form-control" rows="7" cols="500"
+        <textarea name="textarea" id="textarea" class="form-control" rows="5" cols="500"
             placeholder="Enter some characters here to begin counting!"></textarea>
         <br>
         <div class="display">
@@ -28,11 +28,14 @@
         </div>
     </div>
     <div class="center form-group">
+        <div class="alert alert-success fade" id="clipboard-success">Copied to clipboard!<br /></div>
         <label class=".label" for="gen-text-input">Generate Random Character Sequence of a particular length</label>
-        <input class="form-control" id="gen-text-input" type="text" pattern="\d*" maxlength="6"
-            placeholder="Enter length here">
+        <input class="form-control" id="gen-text-input" type="number" maxlength="6" placeholder="Enter length here"
+            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
         <br />
         <button id="gen-text" class="btn" onclick="setRandomTextInTextArea()">Generate Random Text</button>
+        <button id="copy" class="btn" onclick="copyToClipboard()">Copy to clipboard</button>
+        <button id="clear" class="btn" onclick="clearText()">Clear Text</button>
     </div>
     <div id="footer">
         <p id="footer-text"></p>
