@@ -73,7 +73,7 @@ p,
 }
 
 #footer {
-  padding-top: 4rem;
+  padding-top: 2rem;
 }
 
 #theme-toggle {
@@ -110,6 +110,6 @@ img:hover {
 
 @media all and (min-height: 800px) {
   #footer {
-    padding-top: 20rem;
+    padding-top: 14rem;
   }
 }
