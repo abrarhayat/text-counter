@@ -81,6 +81,18 @@ $("document").ready(() => {
     instagram();
   });
 
+  $("#gen-text").click(() => {
+    setRandomTextInTextArea();
+  });
+
+  $("#copy").click(() => {
+    copyToClipboard();
+  });
+
+  $("#clear").click(() => {
+    clearText();
+  });
+
   $(() => {
     $('[data-toggle="tooltip"]').tooltip();
   });
