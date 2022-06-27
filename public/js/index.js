@@ -86,7 +86,12 @@ $("document").ready(() => {
   });
   let theme = window.localStorage.getItem("theme");
   if (!theme) {
-    theme = "dark";
+    try {
+      theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+    } catch (err) {
+      theme = "dark";
+      console.log(err)
+    }
     window.localStorage.setItem("theme", theme);
   }
   setTheme(theme);
