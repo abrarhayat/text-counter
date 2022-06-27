@@ -17,11 +17,14 @@ const getCount = () => {
 };
 
 const setTheme = (theme) => {
-  if (theme === "dark") {  
+  if (theme === "dark") {
     $("#theme-toggle").html(`<img src="images/light_mode.svg" alt="light_mode">`);
     $("#body").addClass("dark");
     $("#theme-toggle").addClass("dark");
     $("#textarea").addClass("dark");
+    $("#gen-text").addClass("dark");
+    $("#copy").addClass("dark");
+    $("#clear").addClass("dark");
     $("#footer").addClass("dark");
     $("a").addClass("dark");
   } else {
@@ -29,6 +32,9 @@ const setTheme = (theme) => {
     $("#body").removeClass("dark");
     $("#theme-toggle").removeClass("dark");
     $("#textarea").removeClass("dark");
+    $("#gen-text").removeClass("dark");
+    $("#copy").removeClass("dark");
+    $("#clear").removeClass("dark");
     $("#footer").removeClass("dark");
     $("a").removeClass("dark");
   }
@@ -55,6 +61,7 @@ $("document").ready(() => {
   $("#wordDisplay").html(wordLabel);
 
   $("#textarea").on("input", () => {
+    $("#gen-text-input").val('');
     getCount();
   });
 
@@ -74,12 +81,29 @@ $("document").ready(() => {
     instagram();
   });
 
+  $("#gen-text").click(() => {
+    setRandomTextInTextArea();
+  });
+
+  $("#copy").click(() => {
+    copyToClipboard();
+  });
+
+  $("#clear").click(() => {
+    clearText();
+  });
+
   $(() => {
     $('[data-toggle="tooltip"]').tooltip();
   });
   let theme = window.localStorage.getItem("theme");
   if (!theme) {
-    theme = "dark";
+    try {
+      theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+    } catch (err) {
+      theme = "dark";
+      console.log(err)
+    }
     window.localStorage.setItem("theme", theme);
   }
   setTheme(theme);
@@ -90,3 +114,54 @@ $("#theme-toggle").click(() => {
   window.localStorage.setItem("theme", theme);
   setTheme(theme);
 });
+
+const setRandomTextInTextArea = () => {
+  let randomTextTargetLength = +$("#gen-text-input").val();
+  let resultText = generateDummyTextOfLength(randomTextTargetLength);
+  $(textarea).val(resultText);
+  getCount();
+}
+
+const generateDummyTextOfLength = (target) => {
+  const dummyText = "This is a random text. This is generated for a convenience of testing."
+  let result = dummyText
+
+  if ((target / dummyText.length) > 1) {
+    while (result.length < target) {
+      result = result + result
+    }
+    return checkForTrailingSpace(result.substring(0, target))
+  }
+  return checkForTrailingSpace(result.substring(0, target))
+}
+
+const checkForTrailingSpace = (result) => {
+  if (result.charAt(result.length - 1) == ' ') {
+    let maxLength = result.length
+    result = result.trim()
+    result = result.padEnd(maxLength, ".")
+  }
+  return result;
+}
+
+const clearText = () => {
+  $('#textarea').val('');
+  $("#gen-text-input").val('');
+  $("#charDisplay").html(charLabel);
+  $("#byteDisplay").html(byteLabel);
+  $("#wordDisplay").html(wordLabel);
+}
+
+const copyToClipboard = () => {
+  let textToCopy = $('#textarea').val();
+  let clipboardSuccessMessage = $('#clipboard-success');
+  if (textToCopy.length > 0) {
+    navigator.clipboard.writeText(textToCopy);
+    clipboardSuccessMessage.css('display', 'block');
+    clipboardSuccessMessage.addClass('show');
+    setTimeout(() => {
+      clipboardSuccessMessage.removeClass('show');
+      clipboardSuccessMessage.css('display', 'none');
+    }, 2000);
+  }
+}
