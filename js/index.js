@@ -54,6 +54,15 @@ const instagram = () => {
 
 // initializaing the page
 $("document").ready(() => {
+  $(window).bind('beforeunload', () => {
+    localStorage.setItem("prevText", $(textarea).val());
+  });
+  if (localStorage.getItem("prevText")) {
+    $(textarea).val(localStorage.getItem("prevText"))
+    setTimeout(() => {
+      getCount();
+    }, 10)
+  }
   $("#charDisplay").html(charLabel);
 
   $("#byteDisplay").html(byteLabel);
